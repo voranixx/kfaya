@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naseny leh ya maluk ?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .background-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(75, 0, 130, 0.15) 0%, transparent 50%),
+                        linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0a0a0a 100%);
+            z-index: 0;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1.2s ease;
+        }
+
+        .video-container.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 9/16;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 90px rgba(138, 43, 226, 0.5),
+                        0 0 100px rgba(75, 0, 130, 0.3);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .confirmation-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .confirmation-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .confirmation-box {
+            background: linear-gradient(135deg, rgba(26, 10, 46, 0.95) 0%, rgba(10, 10, 10, 0.95) 100%);
+            border: 2px solid rgba(138, 43, 226, 0.5);
+            border-radius: 30px;
+            padding: 60px 50px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 40px 100px rgba(138, 43, 226, 0.4),
+                        inset 0 0 100px rgba(138, 43, 226, 0.05);
+            transform: scale(0.8);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .confirmation-overlay.show .confirmation-box {
+            transform: scale(1);
+        }
+
+        .confirmation-text {
+            font-size: 2.8em;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(138, 43, 226, 0.8);
+            line-height: 1.4;
+        }
+
+        .confirm-btn {
+            background: linear-gradient(135deg, #8a2be2 0%, #4b0082 100%);
+            color: #fff;
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.5em;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(138, 43, 226, 0.4);
+            font-family: 'Tajawal', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(138, 43, 226, 0.6);
+            background: linear-gradient(135deg, #9d4edd 0%, #5a0099 100%);
+        }
+
+        .confirm-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .message-container {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .message-container.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .message-card {
+            background: linear-gradient(135deg, rgba(26, 10, 46, 0.8) 0%, rgba(10, 10, 10, 0.8) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: 40px;
+            padding: 80px 60px;
+            box-shadow: 0 40px 120px rgba(138, 43, 226, 0.3),
+                        inset 0 0 100px rgba(138, 43, 226, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #8a2be2, #4b0082, #8a2be2);
+            border-radius: 40px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            animation: border-glow 3s infinite;
+        }
+
+        .message-card:hover::before {
+            opacity: 0.5;
+        }
+
+        @keyframes border-glow {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            background: linear-gradient(135deg, #fff 0%, #8a2be2 50%, #4b0082 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 50px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-shadow: 0 0 50px rgba(138, 43, 226, 0.5);
+        }
+
+        .divider {
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8a2be2, transparent);
+            margin: 40px auto;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #8a2be2;
+            border-radius: 50%;
+            top: -3px;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+        }
+
+        .divider::before {
+            left: -10px;
+        }
+
+        .divider::after {
+            right: -10px;
+        }
+
+        .message-text {
+            font-size: 1.6em;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 2;
+            margin: 30px 0;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .highlight {
+            color: #8a2be2;
+            font-weight: 700;
+            font-size: 1.15em;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+        }
+
+        .box-message {
+            font-size: 2em;
+            color: #fff;
+            font-weight: 700;
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(75, 0, 130, 0.2));
+            border-radius: 25px;
+            border: 2px solid rgba(138, 43, 226, 0.5);
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box-message::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: pulse-wave 2s infinite;
+        }
+
+        @keyframes pulse-wave {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                width: 600px;
+                height: 600px;
+                opacity: 0;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .video-wrapper {
+                max-width: 95%;
+                border-radius: 15px;
+            }
+
+            .confirmation-box {
+                padding: 40px 30px;
+            }
+
+            .confirmation-text {
+                font-size: 2em;
+            }
+
+            .confirm-btn {
+                padding: 18px 50px;
+                font-size: 1.3em;
+            }
+
+            .message-card {
+                padding: 50px 30px;
+                border-radius: 30px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+                letter-spacing: 2px;
+            }
+
+            .message-text {
+                font-size: 1.3em;
+                line-height: 1.8;
+            }
+
+            .box-message {
+                font-size: 1.5em;
+                padding: 30px 20px;
+                margin-top: 40px;
+            }
+
+            .divider {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            .confirmation-text {
+                font-size: 1.8em;
+                margin-bottom: 30px;
+            }
+
+            .confirm-btn {
+                padding: 15px 40px;
+                font-size: 1.2em;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .message-text {
+                font-size: 1.1em;
+            }
+
+            .box-message {
+                font-size: 1.3em;
+            }
+        }
+
+        /* Desktop Enhancements */
+        @media (min-width: 1200px) {
+            .video-wrapper {
+                max-width: 500px;
+            }
+
+            .message-card {
+                padding: 100px 80px;
+            }
+
+            h1 {
+                font-size: 4.5em;
+            }
+
+            .message-text {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-gradient"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="video-container" id="videoContainer">
+            <div class="video-wrapper">
+                <iframe 
+                    allow="autoplay; fullscreen" 
+                    allowfullscreen 
+                    src="https://streamable.com/e/wb3mwb?autoplay=1" 
+                    id="videoFrame">
+                </iframe>
+            </div>
+        </div>
+
+        <div class="confirmation-overlay" id="confirmationOverlay">
+            <div class="confirmation-box">
+                <div class="confirmation-text">صافي يا لبن ؟</div>
+                <button class="confirm-btn" id="confirmBtn">حليب يا اشطا</button>
+            </div>
+        </div>
+
+        <div class="message-container" id="messageContainer">
+            <div class="message-card">
+                <h1>My Darling</h1>
+                
+                <div class="divider"></div>
+                
+                <p class="message-text">
+                    Every moment with you feels like a beautiful dream come true.
+                    Your smile lights up my world, and your love makes every day special.
+                </p>
+                
+                <p class="message-text">
+                    You are my <span class="highlight">everything</span>, 
+                    my <span class="highlight">forever</span>, 
+                    and my <span class="highlight">always</span>.
+                </p>
+
+                <div class="divider"></div>
+
+                <div class="box-message">
+                    Now You Can Open The Box
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+                particle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        let videoEnded = false;
+
+        function showConfirmation() {
+            if (videoEnded) return;
+            videoEnded = true;
+
+            const videoContainer = document.getElementById('videoContainer');
+            const confirmationOverlay = document.getElementById('confirmationOverlay');
+            
+            videoContainer.classList.add('fade-out');
+            
+            setTimeout(() => {
+                videoContainer.style.display = 'none';
+                confirmationOverlay.classList.add('show');
+            }, 1200);
+        }
+
+        function showMessage() {
+            const confirmationOverlay = document.getElementById('confirmationOverlay');
+            const messageContainer = document.getElementById('messageContainer');
+            
+            confirmationOverlay.classList.remove('show');
+            
+            setTimeout(() => {
+                confirmationOverlay.style.display = 'none';
+                messageContainer.classList.add('show');
+            }, 800);
+        }
+
+        // Confirm button
+        document.getElementById('confirmBtn').addEventListener('click', showMessage);
+
+        // Video duration (50 seconds)
+        setTimeout(showConfirmation, 50000);
+
+        // Skip video on click (optional)
+        document.getElementById('videoContainer').addEventListener('click', function(e) {
+            if (e.target === this || e.target.className === 'video-wrapper') {
+                showConfirmation();
+            }
+        });
+    </script>
+</body>
+</html>
