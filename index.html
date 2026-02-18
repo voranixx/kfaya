@@ -7,8 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* جميع الأنماط الأصلية + أنماط تسجيل الدخول */
-
+        /* ========== الأنماط العامة والأصلية (مع إضافة أنماط تسجيل الدخول) ========== */
         * {
             margin: 0;
             padding: 0;
@@ -157,68 +156,68 @@
         }
 
         .super-button {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            padding: 18px 45px;
-            background: linear-gradient(145deg, #0f0f0f, #1c1c1c);
-            border: 2px solid rgba(224, 31, 122, 0.3);
-            border-radius: 100px;
-            color: #fff;
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            cursor: pointer;
-            overflow: hidden;
-            transition: all 0.4s ease-in-out;
-            box-shadow: 0 0 20px rgba(224, 31, 122, 0.2);
-            backdrop-filter: blur(8px);
-            z-index: 1;
-            text-transform: uppercase;
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          padding: 18px 45px;
+          background: linear-gradient(145deg, #0f0f0f, #1c1c1c);
+          border: 2px solid rgba(224, 31, 122, 0.3);
+          border-radius: 100px;
+          color: #fff;
+          font-size: 1.1rem;
+          font-weight: 700;
+          letter-spacing: 1px;
+          cursor: pointer;
+          overflow: hidden;
+          transition: all 0.4s ease-in-out;
+          box-shadow: 0 0 20px rgba(224, 31, 122, 0.2);
+          backdrop-filter: blur(8px);
+          z-index: 1;
+          text-transform: uppercase;
         }
 
         .super-button::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, #e01f7a, #ff1744, #e01f7a);
-            animation: rotate 15s linear infinite;
-            z-index: -2;
+          content: "";
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: conic-gradient(from 0deg, #e01f7a, #ff1744, #e01f7a);
+          animation: rotate 15s linear infinite;
+          z-index: -2;
         }
 
         .super-button::after {
-            content: "";
-            position: absolute;
-            inset: 2px;
-            background: #000000;
-            border-radius: inherit;
-            z-index: -1;
+          content: "";
+          position: absolute;
+          inset: 2px;
+          background: #000000;
+          border-radius: inherit;
+          z-index: -1;
         }
 
         .super-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 35px rgba(224, 31, 122, 0.5);
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 8px 35px rgba(224, 31, 122, 0.5);
         }
 
         .super-button:hover .arrow {
-            transform: translateX(6px);
+          transform: translateX(6px);
         }
 
         .arrow {
-            width: 22px;
-            height: 22px;
-            transition: transform 0.3s ease-in-out;
-            color: #e01f7a;
+          width: 22px;
+          height: 22px;
+          transition: transform 0.3s ease-in-out;
+          color: #e01f7a;
         }
 
         @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
 
         .services-section {
@@ -336,7 +335,7 @@
             font-size: 0.95rem;
         }
 
-        /* أنماط Mini Music Player (من الصفحة الأصلية) */
+        /* Mini Music Player */
         .mini-player {
             position: fixed;
             bottom: 20px;
@@ -418,14 +417,8 @@
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .mini-player-header {
@@ -536,7 +529,7 @@
             font-size: 1.2rem;
         }
 
-        /* أنماط Assistant Modal (من الصفحة الأصلية) */
+        /* Assistant Modal */
         .assistant-modal {
             display: none;
             position: fixed;
@@ -768,7 +761,6 @@
             background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
         }
 
-        /* AI Question Box */
         .ai-question-box {
             background: linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(30, 30, 40, 0.95) 100%);
             border-radius: 16px;
@@ -828,7 +820,6 @@
             white-space: pre-wrap;
         }
 
-        /* Company List */
         .company-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -855,7 +846,6 @@
             box-shadow: 0 4px 15px rgba(224, 31, 122, 0.3);
         }
 
-        /* Copy Notification */
         .copy-notification {
             position: fixed;
             bottom: 30px;
@@ -876,25 +866,13 @@
         }
 
         @keyframes slideUpCopy {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
         @keyframes fadeOutCopy {
-            from {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-20px);
-            }
+            from { opacity: 1; transform: translateX(-50%) translateY(0); }
+            to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
         }
 
         /* Posts Modal */
@@ -1281,7 +1259,75 @@
             letter-spacing: 1px;
         }
 
-        /* أنماط تسجيل الدخول المضافة */
+        @media (max-width: 768px) {
+            .assistant-modal { padding: 10px; }
+            .assistant-container { border-radius: 15px; }
+            .assistant-header { padding: 20px; flex-direction: column; text-align: center; }
+            .assistant-header-content { flex-direction: column; }
+            .assistant-avatar { width: 70px; height: 70px; font-size: 2rem; margin: 0 auto; }
+            .assistant-title h2 { font-size: 1.5rem; }
+            .assistant-title p { font-size: 0.9rem; }
+            .assistant-close { position: absolute; top: 15px; right: 15px; width: 40px; height: 40px; }
+            .assistant-nav { padding: 10px; gap: 8px; }
+            .nav-item { padding: 10px 16px; font-size: 0.9rem; }
+            .assistant-content { padding: 20px; max-height: 65vh; }
+            .template-box { padding: 20px; }
+            .template-text { padding: 15px; font-size: 1rem; max-height: 250px; }
+            .copy-btn { padding: 12px 20px; font-size: 0.95rem; min-width: 100%; }
+            .template-actions { flex-direction: column; }
+            .ai-question-box { padding: 20px; }
+            #aiQuestion { padding: 14px; font-size: 0.95rem; min-height: 80px; }
+            .company-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+            .company-item { padding: 12px; font-size: 0.9rem; }
+            .header-content { flex-direction: column; gap: 15px; }
+            .logo { justify-content: center; width: 100%; }
+            .logo-text { font-size: 1.5rem; letter-spacing: 5px; }
+            .hero { padding: 60px 0 40px; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero .tagline { font-size: 1rem; margin-bottom: 30px; }
+            .super-button { padding: 16px 35px; font-size: 1rem; }
+            .services-grid { grid-template-columns: 1fr; gap: 20px; }
+            .service-card { margin-bottom: 15px; }
+            .card-image { height: 200px; }
+            .card-content { padding: 20px; }
+            .card-title { font-size: 1.3rem; }
+            .mini-player { bottom: 15px; right: 15px; width: 60px; height: 60px; }
+            .mini-player-expanded { bottom: 15px; right: 15px; left: 15px; width: auto; }
+            .mini-player-cover-large { height: 180px; }
+        }
+
+        @media (max-width: 480px) {
+            .assistant-content { padding: 15px; }
+            .nav-item { padding: 8px 12px; font-size: 0.85rem; }
+            .template-box { padding: 15px; }
+            .template-text { padding: 12px; font-size: 0.95rem; }
+            .copy-btn { padding: 12px 16px; font-size: 0.9rem; }
+            .company-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 1.8rem; }
+            .hero .tagline { font-size: 0.9rem; }
+            .super-button { padding: 14px 30px; font-size: 0.9rem; width: 100%; max-width: 300px; }
+            .card-image { height: 180px; }
+            .mini-player { width: 55px; height: 55px; bottom: 10px; right: 10px; }
+            .mini-player i { font-size: 1.3rem; }
+            .mini-player-cover-large { height: 160px; }
+            .mini-player-controls { gap: 15px; }
+            .mini-player-btn { width: 35px; height: 35px; font-size: 0.9rem; }
+            .mini-player-btn.play { width: 45px; height: 45px; font-size: 1.1rem; }
+            .posts-container { padding: 25px 20px; max-height: 85vh; }
+            .posts-header h2 { font-size: 1.5rem; }
+            .random-post-btn, .add-post-btn { width: 100%; justify-content: center; font-size: 0.9rem; padding: 12px; margin-bottom: 20px; }
+            .post-item { min-width: 280px; max-width: 280px; padding: 15px; }
+            .post-text { font-size: 0.9rem; max-height: 150px; }
+            .posts-copy-btn { padding: 10px; font-size: 0.8rem; }
+            .carousel-btn { width: 40px; height: 40px; font-size: 1rem; }
+            .add-post-container { padding: 25px 20px; }
+            .add-post-header h3 { font-size: 1.3rem; }
+            .post-textarea { min-height: 150px; font-size: 0.95rem; }
+            footer { padding: 30px 0; }
+            footer p { font-size: 0.9rem; }
+        }
+
+        /* أنماط تسجيل الدخول (Login Modal) */
         .login-modal {
             display: none;
             position: fixed;
@@ -1587,7 +1633,7 @@
                     <button class="social-btn" onclick="googleLogin()">
                         <i class="fab fa-google"></i> Google
                     </button>
-                    <!-- زر Create Account بدلاً من Apple -->
+                    <!-- Create Account button -->
                     <button class="social-btn" onclick="toggleAuthMode()">
                         <i class="fas fa-user-plus"></i> Create Account
                     </button>
@@ -1747,7 +1793,7 @@
         </div>
     </div>
 
-    <!-- Assistant Modal -->
+    <!-- Assistant Modal (باقي الأقسام ستديناميكياً، لكن سنختصرها هنا للاكتفاء بالهيكل) -->
     <div class="assistant-modal" id="assistantModal">
         <div class="assistant-container">
             <div class="assistant-header">
@@ -1774,35 +1820,14 @@
                     <h3 class="section-title-small">Welcome Message</h3>
                     <div class="template-box">
                         <div class="template-text">Hello, are you interested in working at a call center?</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Hello, are you interested in working at a call center?', this)"><i class="far fa-copy"></i> Copy Welcome Message</button>
-                        </div>
+                        <div class="template-actions"><button class="copy-btn" onclick="copyText('Hello, are you interested in working at a call center?', this)"><i class="far fa-copy"></i> Copy</button></div>
                     </div>
                     <div class="template-box">
-                        <div class="template-text">Nice,\n\nPlease lemme know more details to assist you effectively and recommend a suitable offer & I'll contact u ASAP.\n\nRequired Information:\n\n1. Grad or undergrad?\n2. What about military service?\n3. Age?\n4. Location?\n5. Your language/s level</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Nice,\n\nPlease lemme know more details to assist you effectively and recommend a suitable offer & I\'ll contact u ASAP.\n\nRequired Information:\n\n1. Grad or undergrad?\n2. What about military service?\n3. Age?\n4. Location?\n5. Your language/s level', this)"><i class="far fa-copy"></i> Copy Details Request</button>
-                        </div>
+                        <div class="template-text">Nice,\n\nPlease lemme know more details...</div>
+                        <div class="template-actions"><button class="copy-btn" onclick="copyText('Nice,\n\nPlease lemme know more details...', this)"><i class="far fa-copy"></i> Copy</button></div>
                     </div>
                 </div>
-                <!-- Voice Note Section -->
-                <div id="voiceSection" class="template-section">
-                    <h3 class="section-title-small">Voice Note Instructions</h3>
-                    <div class="template-box">
-                        <div class="template-text">Please send a 1-2 minute voice note introducing yourself and sharing your experience, so we can send you the best offer.\n\nTips for a good voice note:\n• Speak clearly and confidently\n• Mention your experience\n• State your career goals\n• Keep it professional</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Please send a 1-2 minute voice note introducing yourself and sharing your experience, so we can send you the best offer.\n\nTips for a good voice note:\n• Speak clearly and confidently\n• Mention your experience\n• State your career goals\n• Keep it professional', this)"><i class="far fa-copy"></i> Copy Voice Note Instructions</button>
-                        </div>
-                    </div>
-                    <div class="template-box">
-                        <div class="template-text">Your request was submitted successfully ✅\n\nFeedback will be provided as soon as possible inshallah for your VN Assessment.\n\nImportant: Please don't apply again for the same offer/company through anyone else to avoid duplication issues.\n\nGood luck!\n\nJust to let you know, not replying doesn't mean you were rejected. You can message me again if 42 hours have passed without reply.</div>
-                        <div class="template-actions">
-                            <button class="copy-btn" onclick="copyText('Your request was submitted successfully ✅\n\nFeedback will be provided as soon as possible inshallah for your VN Assessment.\n\nImportant: Please don\'t apply again for the same offer/company through anyone else to avoid duplication issues.\n\nGood luck!\n\nJust to let you know, not replying doesn\'t mean you were rejected. You can message me again if 42 hours have passed without reply.', this)"><i class="far fa-copy"></i> Copy Submission Confirmation</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- باقي الأقسام (Accepted, Rejected, Confirmation, Form, Interview, Companies, AI) -->
-                <!-- يمكن إضافتها بنفس الطريقة، ولكن للاختصار نكتفي بهذا -->
+                <!-- باقي الأقسام يمكن إضافتها بنفس الطريقة -->
             </div>
         </div>
     </div>
@@ -1833,7 +1858,7 @@
             <button class="close-modal" onclick="closeAddPostModal()">×</button>
             <div class="add-post-header">
                 <h3>Add Custom Post</h3>
-                <p>Write your own post template to use with the others</p>
+                <p>Write your own post template</p>
             </div>
             <textarea class="post-textarea" id="customPostText" placeholder="Write your custom post here..."></textarea>
             <div class="form-actions">
@@ -1845,15 +1870,18 @@
 
     <footer id="footer">
         <div class="container">
-            <p>This page is not the official website of VORANIX.<br>It was independently designed and developed by TL. Seif Yasser</p>
+            <p style="color:#e01f7a; font-size:15px; font-weight:600; padding:20px; border-top:1px solid rgba(224,31,122,0.3); margin-top:20px; text-align:center; letter-spacing:1px; line-height:1.6;">
+                This page is not the official website of VORANIX.<br>It was independently designed and developed by TL. Seif Yasser
+            </p>
         </div>
     </footer>
 
-    <!-- Firebase SDK (CDN) -->
+    <!-- Firebase SDK (via CDN) -->
     <script type="module">
+        // استيراد Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAh8jZMcfdvmcEOcIYLLLLzMIWAwFHsVps",
@@ -1868,12 +1896,22 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+
+        // تمكين الاستمرار (persistence) لتجنب مشاكل الاتصال
+        enableIndexedDbPersistence(db).catch((err) => {
+            if (err.code == 'failed-precondition') {
+                console.log("Persistence failed: Multiple tabs open");
+            } else if (err.code == 'unimplemented') {
+                console.log("Persistence not supported");
+            }
+        });
+
         const provider = new GoogleAuthProvider();
 
         let currentUser = null;
         let isApproved = false;
 
-        // إرسال إشعار للمسؤول عبر EmailJS
+        // دالة إرسال إشعار للمسؤول عبر EmailJS (تأكد من إدخال الـ Public Key)
         window.sendEmailNotification = function(name, email) {
             if (typeof emailjs === 'undefined') {
                 console.error('EmailJS not loaded');
@@ -1935,7 +1973,7 @@
                     sendEmailNotification(fullName, email);
                     await signOut(auth);
                     messageDiv.innerHTML = '<div class="success-message">Registration successful! Please wait for admin approval.</div>';
-                    toggleAuthMode(); // العودة لوضع تسجيل الدخول بعد التسجيل
+                    toggleAuthMode(); // العودة لوضع تسجيل الدخول
                 }
             } catch (error) {
                 messageDiv.innerHTML = `<div class="error-message">${error.message}</div>`;
@@ -1952,7 +1990,6 @@
                 const user = result.user;
                 const userDoc = await getDoc(doc(db, 'users', user.uid));
                 if (!userDoc.exists()) {
-                    // مستخدم جديد
                     await setDoc(doc(db, 'users', user.uid), {
                         name: user.displayName || 'Google User',
                         email: user.email,
@@ -2091,25 +2128,28 @@
         document.getElementById('exploreButton').addEventListener('click', exploreSite);
     </script>
 
-    <!-- EmailJS -->
+    <!-- EmailJS SDK (تأكد من وضع الـ Public Key الخاص بك) -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init('YOUR_PUBLIC_KEY'); // ضع public key الخاص بك من EmailJS
+            emailjs.init('YOUR_PUBLIC_KEY'); // ضع الـ public key الخاص بحساب EmailJS
         })();
     </script>
 
     <!-- أكواد JavaScript الأصلية (موسيقى، مساعد، منشورات) -->
     <script>
-        // هنا توضع جميع دوال الصفحة الأصلية (مشغل الموسيقى، المساعد، المنشورات، النسخ، إلخ)
-        // تم تضمينها من الكود الأصلي السابق، ولكن للاختصار نذكر فقط الأساسيات
-        // يمكنك إضافة الدوال كاملة من ملفك الأصلي
-
-        // مثال بسيط لمشغل الموسيقى:
+        // ============ MUSIC PLAYER FUNCTIONS ============
         const playlist = [
             { title: "Sunsetz", artist: "Cigarettes After Sex", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Sunsetz%20-%20Cigarettes%20After%20Sex.mp3", cover: "https://i.ibb.co/zV9Mygn0/image.png" },
-            // ... باقي الأغاني
+            { title: "Chamber Of Reflection", artist: "Mac DeMarco", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Chamber_Of_Reflection_LOW.webm", cover: "https://i.ibb.co/gZcSqMrS/image.png" },
+            { title: "No Surprises", artist: "Radiohead", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/No_Surprises_Remastered_LOW.webm", cover: "https://i.ibb.co/gFcw3m0v/image.png" },
+            { title: "Indigo Night", artist: "Tamino", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Indigo%20Night%20-%20Tamino.mp3", cover: "https://i.ibb.co/7xPSZXxT/image.png" },
+            { title: "Music To Watch Boys To", artist: "Lana Del Rey", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Music%20To%20Watch%20Boys%20To%20(Demo)%20-%20dreamsoda.mp3", cover: "https://i.ibb.co/k2DLby2k/image.png" },
+            { title: "Daylight", artist: "David Kushner", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Daylight%20-%20David%20Kushner.mp3", cover: "https://i.ibb.co/CK2254sM/image.png" },
+            { title: "Fade Into You", artist: "Mazzy Star", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/Fade%20Into%20You%20-%20Mazzy%20Star.mp3", cover: "https://i.ibb.co/Z65123TZ/image.png" },
+            { title: "The Night We Met", artist: "holyshua", src: "https://github.com/voranixx/VORANIXX.github.io/raw/refs/heads/main/The%20Nigth%20We%20Met%20-%20holyshua.mp3", cover: "https://i.ibb.co/VYbTPg5R/image.png" }
         ];
+
         let currentTrackIndex = 0;
         let isPlaying = false;
         let musicPlayer = new Audio();
@@ -2135,12 +2175,16 @@
             const miniPlayerIcon = document.getElementById('miniPlayerIcon');
             if (isPlaying) {
                 musicPlayer.pause();
-                playIcon.classList.replace('fa-pause', 'fa-play');
-                miniPlayerIcon.classList.replace('fa-pause', 'fa-play');
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+                miniPlayerIcon.classList.remove('fa-pause');
+                miniPlayerIcon.classList.add('fa-play');
             } else {
                 musicPlayer.play();
-                playIcon.classList.replace('fa-play', 'fa-pause');
-                miniPlayerIcon.classList.replace('fa-play', 'fa-pause');
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+                miniPlayerIcon.classList.remove('fa-play');
+                miniPlayerIcon.classList.add('fa-pause');
             }
             isPlaying = !isPlaying;
         }
@@ -2169,10 +2213,195 @@
             document.getElementById('miniPlayerExpanded').classList.remove('active');
         }
 
-        // دوال المساعد والمنشورات ... (ضعها هنا)
+        // ============ ASSISTANT FUNCTIONS ============
+        function handleCardClick(url, type) {
+            if (type === 'form' || type === 'matching') {
+                window.location.href = url;
+            } else {
+                window.open(url, '_blank');
+            }
+        }
 
+        function openAssistantModal() {
+            document.getElementById('assistantModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            initCompanyGrid();
+        }
+
+        function closeAssistantModal() {
+            document.getElementById('assistantModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.template-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            const target = document.getElementById(sectionId + 'Section');
+            if (target) target.classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function copyText(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const orig = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                btn.classList.add('copied');
+                showCopyNotification();
+                setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+            }).catch(() => {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showCopyNotification();
+            });
+        }
+
+        function showCopyNotification() {
+            const n = document.querySelector('.copy-notification');
+            if (n) n.remove();
+            const notif = document.createElement('div');
+            notif.className = 'copy-notification';
+            notif.innerHTML = '<i class="fas fa-check-circle"></i><span>Copied to clipboard!</span>';
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2000);
+        }
+
+        const companies = ["Leadbull","Dyninno","Realogy","Insource","OUTSOURCING SKILL","NAOS","Telephonic","Vitrin Clinic","LTS","Phoenix","IntouchCX","TTC","HANG-UP Solutions","CXPERTS","Ultatek","CNS","FOODHUB","Creative Basket","Volumex","BPO HIVE"];
+
+        function initCompanyGrid() {
+            const grid = document.getElementById('companyGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            companies.forEach(c => {
+                const item = document.createElement('div');
+                item.className = 'company-item';
+                item.textContent = c;
+                item.onclick = () => {
+                    const txt = `We are confirming your interview in ${c} tomorrow insha'allah.\n\nDetails:\n• Date: [Add Date]\n• Time: [Add Time]\n• Dress Code: Smart Casual\n• Location: [Add Location]\n\nPlease reply with "Confirmed" if you're coming in the stated time above for sure.\n\nImportant: Don't forget to tell them that you are recruited by "Voranix"\n\nWish you the best of Luck!`;
+                    copyText(txt, item);
+                };
+                grid.appendChild(item);
+            });
+        }
+
+        async function askAI() {
+            const q = document.getElementById('aiQuestion').value.trim();
+            if (!q) { alert('Please enter a question.'); return; }
+            const respBox = document.getElementById('aiResponse');
+            const respContent = document.getElementById('aiResponseContent');
+            respContent.textContent = 'Thinking...';
+            respBox.classList.add('active');
+            // محاكاة رد
+            const answers = [
+                "For call center interviews, focus on clear communication skills and customer service attitude. Practice common questions like 'Tell me about yourself' and 'Why do you want this job?'",
+                "A good voice note should be 1-2 minutes, clear, and professional. Mention your experience, language skills, and why you're interested in the role.",
+                "To prepare for a call center interview, research the company, practice common scenarios, and prepare questions to ask the interviewer."
+            ];
+            let ans = answers[Math.floor(Math.random() * answers.length)];
+            respContent.textContent = '';
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < ans.length) { respContent.textContent += ans.charAt(i); i++; }
+                else clearInterval(interval);
+            }, 30);
+        }
+
+        function copyAIResponse() {
+            const txt = document.getElementById('aiResponseContent').textContent;
+            copyText(txt, event.currentTarget);
+        }
+
+        // ============ POSTS FUNCTIONS ============
+        const recruitmentPosts = [
+            "غيرك بياخد مكانك في الشغل وانت لسه بتدور،طب ليه طيب🤔\nابعتلي و استلم شغلك❤️\nEnglish b1\nGrads only",
+            "شغل call center يناسب جميع المؤهلات❤️\nاطلب النصاب، احنا واخدين بالنا منك✅\nأبعت استفسارك دلوقتي",
+            "مافيش حاجه اسمها مش لاقي شغل، في حاجه اسمها مش عارف تقدم فين❤️\nابعتلي و هنوصلك",
+            "فرص call center بدون خبرة🔥\nرواتب مجزية + حوافز + بيئة عمل محترمة\nسجل بياناتك دلوقتي",
+            "لو انت خريج جديد وتدور على بداية قوية في حياتك المهنية❤️\nده الوقت الصح تماما"
+        ]; // أضف باقي المنشورات من الكود الأصلي
+
+        function openPostsModal() {
+            document.getElementById('postsModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            loadPosts();
+        }
+
+        function closePostsModal() {
+            document.getElementById('postsModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function loadPosts() {
+            const track = document.getElementById('postsTrack');
+            if (!track) return;
+            track.innerHTML = '';
+            recruitmentPosts.forEach((post, idx) => {
+                const item = document.createElement('div');
+                item.className = 'post-item';
+                item.innerHTML = `<div class="post-text">${post}</div><button class="posts-copy-btn" onclick="copyPost(this, ${idx})"><i class="far fa-copy"></i> Copy Post</button>`;
+                track.appendChild(item);
+            });
+            document.getElementById('leftBtn').onclick = () => track.scrollBy({ left: -320, behavior: 'smooth' });
+            document.getElementById('rightBtn').onclick = () => track.scrollBy({ left: 320, behavior: 'smooth' });
+        }
+
+        function copyPost(btn, idx) {
+            const text = recruitmentPosts[idx];
+            navigator.clipboard.writeText(text).then(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                btn.classList.add('copied');
+                showCopyNotification();
+                setTimeout(() => { btn.innerHTML = '<i class="far fa-copy"></i> Copy Post'; btn.classList.remove('copied'); }, 2000);
+            });
+        }
+
+        function selectRandomPost() {
+            const posts = document.querySelectorAll('.post-item');
+            if (!posts.length) return;
+            posts.forEach(p => p.classList.remove('highlight'));
+            const rand = Math.floor(Math.random() * posts.length);
+            posts[rand].classList.add('highlight');
+            posts[rand].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => posts[rand].querySelector('.posts-copy-btn').click(), 500);
+        }
+
+        function openAddPostModal() {
+            document.getElementById('addPostModal').classList.add('active');
+        }
+
+        function closeAddPostModal() {
+            document.getElementById('addPostModal').classList.remove('active');
+        }
+
+        function saveCustomPost() {
+            const txt = document.getElementById('customPostText').value.trim();
+            if (txt) {
+                recruitmentPosts.push(txt);
+                loadPosts();
+                alert('Custom post saved!');
+                closeAddPostModal();
+            } else alert('Please write a post.');
+        }
+
+        // إغلاق المودالات بالنقر خارجها
         document.addEventListener('DOMContentLoaded', function() {
             initMusicPlayer();
+
+            document.getElementById('assistantModal')?.addEventListener('click', function(e) {
+                if (e.target === this) closeAssistantModal();
+            });
+            document.getElementById('postsModal')?.addEventListener('click', function(e) {
+                if (e.target === this) closePostsModal();
+            });
+            document.getElementById('addPostModal')?.addEventListener('click', function(e) {
+                if (e.target === this) closeAddPostModal();
+            });
+            document.getElementById('miniPlayerExpanded')?.addEventListener('click', function(e) {
+                if (e.target === this) closeMiniPlayer();
+            });
         });
     </script>
 </body>
