@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORANIX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* جميع الأنماط كما هي - مختصرة للتوضيح */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .template-text, .post-text, .ai-response-content, 
+        .post-textarea, #aiQuestion, textarea, input,
+        .login-form input, .login-form label, .login-form .p, .login-form .span {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 20px 0;
+            box-shadow: 0 2px 20px rgba(224, 31, 122, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(224, 31, 122, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-v {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #e01f7a 0%, #ff1744 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 8px;
+        }
+
+        #userInfo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #userName {
+            color: #e01f7a;
+            font-weight: 600;
+        }
+
+        #logoutBtn {
+            background: rgba(224, 31, 122, 0.2);
+            border: 1px solid #e01f7a;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        #logoutBtn:hover {
+            background: #e01f7a;
+            color: black;
+        }
+
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+            background: #000000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(224, 31, 122, 0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 15px;
+            line-height: 1.1;
+            letter-spacing: 2px;
+        }
+
+        .hero .tagline {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: #e01f7a;
+        }
+
+        .super-button {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 45px;
+            background: linear-gradient(145deg, #0f0f0f, #1c1c1c);
+            border: 2px solid rgba(224, 31, 122, 0.3);
+            border-radius: 100px;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.4s ease-in-out;
+            box-shadow: 0 0 20px rgba(224, 31, 122, 0.2);
+            backdrop-filter: blur(8px);
+            z-index: 1;
+            text-transform: uppercase;
+        }
+
+        .super-button::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, #e01f7a, #ff1744, #e01f7a);
+            animation: rotate 15s linear infinite;
+            z-index: -2;
+        }
+
+        .super-button::after {
+            content: "";
+            position: absolute;
+            inset: 2px;
+            background: #000000;
+            border-radius: inherit;
+            z-index: -1;
+        }
+
+        .super-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 35px rgba(224, 31, 122, 0.5);
+        }
+
+        .super-button:hover .arrow {
+            transform: translateX(6px);
+        }
+
+        .arrow {
+            width: 22px;
+            height: 22px;
+            transition: transform 0.3s ease-in-out;
+            color: #e01f7a;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* خدمات */
+        .services-section {
+            padding: 80px 0;
+            background: #000000;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            display: none;
+        }
+
+        .services-section.show {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .section-title p {
+            color: #999999;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: #0a0a0a;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s;
+            cursor: pointer;
+            border: 1px solid rgba(224, 31, 122, 0.2);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(224, 31, 122, 0.4);
+            border-color: #e01f7a;
+        }
+
+        .card-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(224, 31, 122, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .card-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(224, 31, 122, 0.1);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #e01f7a;
+            margin-bottom: 15px;
+            font-weight: 600;
+            border: 1px solid rgba(224, 31, 122, 0.3);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .card-description {
+            color: #999999;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e01f7a;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        /* ============ LOGIN MODAL ============ */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-modal.active {
+            display: flex;
+        }
+
+        .login-container {
+            background: #0a0a0a;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            border: 1px solid rgba(224, 31, 122, 0.3);
+            box-shadow: 0 10px 40px rgba(224, 31, 122, 0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            color: #e01f7a;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #999;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .login-form .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .login-form label {
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .login-form .input-field {
+            display: flex;
+            align-items: center;
+            background: #1a1a1a;
+            border: 1px solid rgba(224, 31, 122, 0.3);
+            border-radius: 50px;
+            padding: 0 15px;
+            height: 50px;
+        }
+
+        .login-form .input-field i {
+            color: #e01f7a;
+            margin-right: 10px;
+        }
+
+        .login-form .input-field input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .login-form .input-field input::placeholder {
+            color: #666;
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .login-options label {
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .login-options .forgot-password {
+            color: #e01f7a;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #e01f7a, #ff1744);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(224, 31, 122, 0.4);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(224, 31, 122, 0.6);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .toggle-auth {
+            text-align: center;
+            color: #ccc;
+        }
+
+        .toggle-auth span {
+            color: #e01f7a;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .separator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .separator hr {
+            flex: 1;
+            border: none;
+            height: 1px;
+            background: #333;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: white;
+            padding: 12px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .social-btn:hover {
+            border-color: #e01f7a;
+            background: #222;
+        }
+
+        .social-btn i {
+            color: #e01f7a;
+        }
+
+        .close-login {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(224, 31, 122, 0.1);
+            border: 1px solid rgba(224, 31, 122, 0.3);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #e01f7a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .close-login:hover {
+            transform: rotate(90deg);
+            background: rgba(224, 31, 122, 0.2);
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff4444;
+            color: #ff8888;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .success-message {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #4caf50;
+            color: #81c784;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* باقي الأنماط (ميني بلاير، مساعد، منشورات، فوتر) تم تضمينها في الكود الأصلي */
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-v">V</span>
+                    <span class="logo-text">ORANIX</span>
+                </div>
+                <div id="userInfo" style="display: none;">
+                    <span id="userName"></span>
+                    <button id="logoutBtn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-container">
+            <button class="close-login" onclick="closeLoginModal()">×</button>
+            <div class="login-header">
+                <h2 id="authTitle">Sign In</h2>
+                <p id="authSubtitle">Access your VORANIX account</p>
+            </div>
+            <div id="authMessage"></div>
+            <div class="login-form" id="loginForm">
+                <!-- Full Name field - shown only in signup mode -->
+                <div class="input-group" id="fullNameGroup" style="display: none;">
+                    <label>Full Name</label>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="fullName" placeholder="Enter your full name">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Enter your email">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Enter your password">
+                    </div>
+                </div>
+
+                <div class="login-options">
+                    <label>
+                        <input type="checkbox" id="remember"> Remember me
+                    </label>
+                    <span class="forgot-password" onclick="forgotPassword()">Forgot password?</span>
+                </div>
+
+                <button class="login-btn" id="authButton" onclick="handleAuth()">Sign In</button>
+
+                <div class="toggle-auth">
+                    <span id="toggleAuthText">Don't have an account?</span> 
+                    <span id="toggleAuthLink" onclick="toggleAuthMode()">Sign Up</span>
+                </div>
+
+                <div class="separator">
+                    <hr> <span>Or With</span> <hr>
+                </div>
+
+                <div class="social-login">
+                    <button class="social-btn" onclick="googleLogin()">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <!-- زر إنشاء حساب جديد - بدلاً من Apple -->
+                    <button class="social-btn" onclick="toggleAuthMode()">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Approval Modal -->
+    <div class="login-modal" id="pendingModal">
+        <div class="login-container">
+            <div class="login-header">
+                <h2 style="color: #ffaa00;">Pending Approval</h2>
+                <p>Your account is waiting for admin approval. You will be notified once approved.</p>
+            </div>
+            <button class="login-btn" onclick="logout()" style="background: #ffaa00;">OK</button>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="login-modal" id="forgotModal">
+        <div class="login-container">
+            <button class="close-login" onclick="closeForgotModal()">×</button>
+            <div class="login-header">
+                <h2 style="color: #e01f7a;">Reset Password</h2>
+                <p>Enter your email to receive a reset link</p>
+            </div>
+            <div id="forgotMessage"></div>
+            <div class="login-form">
+                <div class="input-group">
+                    <label>Email</label>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="resetEmail" placeholder="Enter your email">
+                    </div>
+                </div>
+                <button class="login-btn" onclick="sendResetEmail()">Send Reset Link</button>
+                <div class="toggle-auth">
+                    <span onclick="closeForgotModal(); openLoginModal()">Back to Sign In</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="container">
+                <h1>VORANIX</h1>
+                <p class="tagline">Where Power Hires Power.</p>
+                <button class="super-button" id="exploreButton">
+                  <span>Explore Our Services</span>
+                  <svg fill="none" viewBox="0 0 24 24" class="arrow">
+                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M5 12h14M13 6l6 6-6 6"></path>
+                  </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-section" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Professional Offers</h2>
+                <p>Everything you need to succeed in your recruitment journey</p>
+            </div>
+            <div class="services-grid">
+                <!-- البطاقات الخدمية (كما هي) -->
+                <div class="service-card" onclick="window.location.href='sourcing-tools.html'">
+                    <div class="card-image" style="background-image: url('https://i.ibb.co/nsSfNr3m/image.png');"></div>
+                    <div class="card-content">
+                        <span class="card-badge"><i class="fas fa-users"></i> Essential Tools</span>
+                        <h3 class="card-title">Sourcing Tools</h3>
+                        <p class="card-description">Start joining the groups and posting to reach the best candidates in your field.</p>
+                        <a href="#" class="card-link">Explore Tools <span class="arrow">→</span></a>
+                    </div>
+                </div>
+                <!-- باقي البطاقات -->
+            </div>
+        </div>
+    </section>
+
+    <!-- باقي العناصر (ميني بلاير، مساعد، منشورات) تضاف هنا -->
+
+    <footer id="footer">
+        <div class="container">
+            <p>This page is not the official website of VORANIX.<br>It was independently designed and developed by TL. Seif Yasser</p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAh8jZMcfdvmcEOcIYLLLLzMIWAwFHsVps",
+            authDomain: "voranixx.firebaseapp.com",
+            projectId: "voranixx",
+            storageBucket: "voranixx.firebasestorage.app",
+            messagingSenderId: "625727844363",
+            appId: "1:625727844363:web:cc45b79bb0076013a6970e",
+            measurementId: "G-LKH52SDWE6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        let currentUser = null;
+        let isApproved = false;
+
+        // إرسال إشعار للمسؤول عبر EmailJS
+        window.sendEmailNotification = function(name, email) {
+            if (typeof emailjs === 'undefined') {
+                console.error('EmailJS not loaded');
+                return;
+            }
+            emailjs.send('voranixx', 'template_nl9txwt', {
+                title: 'New User Registration',
+                name: name,
+                message: `New user registered: ${email}. Please approve or reject this user in Firebase console.`
+            }).then(() => {
+                console.log('Email sent to admin');
+            }).catch(err => {
+                console.error('Email sending failed:', err);
+            });
+        };
+
+        // معالجة التسجيل/الدخول
+        window.handleAuth = async function() {
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const isLogin = document.getElementById('authTitle').innerText === 'Sign In';
+            const fullName = document.getElementById('fullName').value.trim();
+            const messageDiv = document.getElementById('authMessage');
+            const authButton = document.getElementById('authButton');
+
+            if (!email || !password) {
+                showMessage('Please fill in all fields', 'error');
+                return;
+            }
+            if (!isLogin && !fullName) {
+                showMessage('Please enter your full name', 'error');
+                return;
+            }
+
+            authButton.disabled = true;
+            authButton.innerText = 'Processing...';
+
+            try {
+                if (isLogin) {
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    const user = userCredential.user;
+                    const userDoc = await getDoc(doc(db, 'users', user.uid));
+                    if (userDoc.exists() && userDoc.data().approved === true) {
+                        closeLoginModal();
+                        showServices();
+                    } else {
+                        await signOut(auth);
+                        document.getElementById('pendingModal').classList.add('active');
+                    }
+                } else {
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    const user = userCredential.user;
+                    await setDoc(doc(db, 'users', user.uid), {
+                        name: fullName,
+                        email: email,
+                        approved: false,
+                        timestamp: new Date().toISOString()
+                    });
+                    sendEmailNotification(fullName, email);
+                    await signOut(auth);
+                    showMessage('Registration successful! Please wait for admin approval.', 'success');
+                    toggleAuthMode(); // العودة لوضع تسجيل الدخول بعد التسجيل
+                }
+            } catch (error) {
+                showMessage(error.message, 'error');
+            } finally {
+                authButton.disabled = false;
+                authButton.innerText = isLogin ? 'Sign In' : 'Sign Up';
+            }
+        };
+
+        // تسجيل الدخول بجوجل
+        window.googleLogin = async function() {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                const userDoc = await getDoc(doc(db, 'users', user.uid));
+                if (!userDoc.exists()) {
+                    // مستخدم جديد
+                    await setDoc(doc(db, 'users', user.uid), {
+                        name: user.displayName || 'Google User',
+                        email: user.email,
+                        approved: false,
+                        timestamp: new Date().toISOString()
+                    });
+                    sendEmailNotification(user.displayName || 'Google User', user.email);
+                    await signOut(auth);
+                    showMessage('Registration successful! Please wait for admin approval.', 'success');
+                    closeLoginModal();
+                } else {
+                    if (userDoc.data().approved === true) {
+                        closeLoginModal();
+                        showServices();
+                    } else {
+                        await signOut(auth);
+                        document.getElementById('pendingModal').classList.add('active');
+                    }
+                }
+            } catch (error) {
+                showMessage(error.message, 'error');
+            }
+        };
+
+        // إعادة تعيين كلمة المرور
+        window.forgotPassword = function() {
+            closeLoginModal();
+            document.getElementById('forgotModal').classList.add('active');
+        };
+
+        window.sendResetEmail = async function() {
+            const email = document.getElementById('resetEmail').value.trim();
+            const messageDiv = document.getElementById('forgotMessage');
+            if (!email) {
+                messageDiv.innerHTML = '<div class="error-message">Please enter your email</div>';
+                return;
+            }
+            try {
+                await sendPasswordResetEmail(auth, email);
+                messageDiv.innerHTML = '<div class="success-message">Password reset email sent! Check your inbox.</div>';
+                setTimeout(() => {
+                    closeForgotModal();
+                    openLoginModal();
+                }, 3000);
+            } catch (error) {
+                messageDiv.innerHTML = `<div class="error-message">${error.message}</div>`;
+            }
+        };
+
+        window.closeForgotModal = function() {
+            document.getElementById('forgotModal').classList.remove('active');
+            document.getElementById('forgotMessage').innerHTML = '';
+            document.getElementById('resetEmail').value = '';
+        };
+
+        window.openLoginModal = function() {
+            document.getElementById('loginModal').classList.add('active');
+        };
+
+        function showMessage(text, type) {
+            const msgDiv = document.getElementById('authMessage');
+            msgDiv.innerHTML = `<div class="${type === 'error' ? 'error-message' : 'success-message'}">${text}</div>`;
+            setTimeout(() => msgDiv.innerHTML = '', 5000);
+        }
+
+        window.toggleAuthMode = function() {
+            const isLogin = document.getElementById('authTitle').innerText === 'Sign In';
+            if (isLogin) {
+                // التبديل إلى وضع التسجيل
+                document.getElementById('authTitle').innerText = 'Sign Up';
+                document.getElementById('authSubtitle').innerText = 'Create your account';
+                document.getElementById('authButton').innerText = 'Sign Up';
+                document.getElementById('toggleAuthText').innerText = 'Already have an account?';
+                document.getElementById('toggleAuthLink').innerText = 'Sign In';
+                document.getElementById('fullNameGroup').style.display = 'flex';
+            } else {
+                // التبديل إلى وضع تسجيل الدخول
+                document.getElementById('authTitle').innerText = 'Sign In';
+                document.getElementById('authSubtitle').innerText = 'Access your VORANIX account';
+                document.getElementById('authButton').innerText = 'Sign In';
+                document.getElementById('toggleAuthText').innerText = 'Don\'t have an account?';
+                document.getElementById('toggleAuthLink').innerText = 'Sign Up';
+                document.getElementById('fullNameGroup').style.display = 'none';
+            }
+        };
+
+        window.logout = async function() {
+            await signOut(auth);
+            hideServices();
+            document.getElementById('userInfo').style.display = 'none';
+            window.location.reload();
+        };
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userDoc = await getDoc(doc(db, 'users', user.uid));
+                if (userDoc.exists() && userDoc.data().approved === true) {
+                    currentUser = user;
+                    isApproved = true;
+                    document.getElementById('userName').innerText = userDoc.data().name || user.email;
+                    document.getElementById('userInfo').style.display = 'flex';
+                } else {
+                    await signOut(auth);
+                    document.getElementById('pendingModal').classList.add('active');
+                }
+            } else {
+                currentUser = null;
+                isApproved = false;
+                document.getElementById('userInfo').style.display = 'none';
+                hideServices();
+            }
+        });
+
+        window.closeLoginModal = function() {
+            document.getElementById('loginModal').classList.remove('active');
+        };
+
+        window.exploreSite = async function() {
+            if (!currentUser) {
+                document.getElementById('loginModal').classList.add('active');
+                return;
+            }
+            if (!isApproved) {
+                document.getElementById('pendingModal').classList.add('active');
+                return;
+            }
+            showServices();
+        };
+
+        function showServices() {
+            document.getElementById('services').style.display = 'block';
+            setTimeout(() => document.getElementById('services').classList.add('show'), 50);
+            document.getElementById('footer').style.display = 'block';
+            setTimeout(() => document.getElementById('footer').classList.add('show'), 300);
+            document.getElementById('miniPlayer').classList.add('show');
+        }
+
+        function hideServices() {
+            document.getElementById('services').style.display = 'none';
+            document.getElementById('footer').style.display = 'none';
+            document.getElementById('miniPlayer').classList.remove('show');
+        }
+
+        document.getElementById('exploreButton').addEventListener('click', exploreSite);
+    </script>
+
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init('YOUR_PUBLIC_KEY'); // ضع public key الخاص بك من EmailJS
+        })();
+    </script>
+
+    <!-- أكواد JavaScript الأصلية (موسيقى، مساعد، منشورات) تضاف هنا -->
+    <script>
+        // ضع هنا جميع دوال الصفحة الأصلية مثل:
+        // initMusicPlayer, openAssistantModal, copyText, askAI, openPostsModal, إلخ.
+    </script>
+</body>
+</html>
