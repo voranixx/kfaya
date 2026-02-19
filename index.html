@@ -1797,6 +1797,31 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
+
+function googleLogin() {
+  // يفتح صفحة الـ Google ثم يرجع للصفحة الحالية
+  signInWithRedirect(auth, provider).catch(err => {
+    console.error('redirect error:', err);
+    // هنا ممكن تعرض رسالة للمستخدم
+  });
+}
+
+// بعد الـ redirect — استعمل onAuthStateChanged أو getRedirectResult في بداية تحميل الصفحة
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    // المستخدم مُسجَّل، افعل ما يلزم (مثلاً إنشاء doc في users)
+    const uid = user.uid;
+    // مثال: await setUserDoc(uid, { email: user.email, name: user.displayName });
+  } else {
+    // غير مسجل
+  }
+});
 
         // تكوين Firebase - استبدله بقيم مشروعك الجديد
         const firebaseConfig = {
@@ -1891,18 +1916,16 @@
         };
 
         // تسجيل الدخول بجوجل
-        window.googleLogin = async function() {
-            try {
-                const result = await signInWithPopup(auth, provider);
-                const user = result.user;
-                const userDoc = await getDoc(doc(db, 'users', user.uid));
-                if (!userDoc.exists()) {
-                    await setDoc(doc(db, 'users', user.uid), {
-                        name: user.displayName || 'Google User',
-                        email: user.email,
-                        approved: false,
-                        timestamp: new Date().toISOString()
-                    });
+      // قبل: signInWithPopup(auth, provider)
+window.googleLogin = async function() {
+  try {
+    await signInWithRedirect(auth, provider); // يفتح redirect
+    // بعد الـ redirect سيتم التعامل مع المستخدم في onAuthStateChanged أو عبر getRedirectResult
+  } catch (error) {
+    document.getElementById('authMessage').innerHTML = `<div class="error-message">${error.message}</div>`;
+  }
+};
+
                     sendEmailNotification(user.displayName || 'Google User', user.email);
                     await signOut(auth);
                     document.getElementById('authMessage').innerHTML = '<div class="success-message">Registration successful! Please wait for admin approval.</div>';
