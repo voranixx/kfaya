@@ -2,17 +2,17 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Auth System</title>
+  <title>Voranixx Auth</title>
 </head>
 <body>
 
   <h2>Register</h2>
   <input type="email" id="email" placeholder="Email"><br><br>
   <input type="password" id="password" placeholder="Password"><br><br>
-  <button onclick="register()">Register</button>
+  <button id="registerBtn">Register</button>
 
   <h2>Login with Google</h2>
-  <button onclick="googleLogin()">Login with Google</button>
+  <button id="googleBtn">Login with Google</button>
 
   <p id="message"></p>
 
@@ -34,7 +34,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
 
-// 🔥 حط بيانات مشروعك هنا
+// 🔥 Firebase Config بتاعك
 const firebaseConfig = {
   apiKey: "AIzaSyAh8jZMcfdvmcEOcIYLLLLzMIWAwFHsVps",
   authDomain: "voranixx.firebaseapp.com",
@@ -44,18 +44,20 @@ const firebaseConfig = {
   appId: "1:625727844363:web:88e84c6ed800dd8ca6970e"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
+const message = document.getElementById("message");
+
 
 // ================= REGISTER =================
-window.register = async function () {
+document.getElementById("registerBtn")
+.addEventListener("click", async () => {
+
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-  const message = document.getElementById("message");
 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -69,55 +71,43 @@ window.register = async function () {
     message.innerText = "Account created successfully ✅";
 
   } catch (error) {
-    console.error(error);
+    console.error("Register error:", error);
     message.innerText = error.message;
   }
-};
+});
 
 
 // ================= GOOGLE LOGIN =================
-window.googleLogin = function () {
+document.getElementById("googleBtn")
+.addEventListener("click", () => {
   signInWithRedirect(auth, provider).catch(error => {
-    console.error(error);
+    console.error("Google login error:", error);
   });
-};
+});
 
 
 // ================= AFTER LOGIN =================
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-
 onAuthStateChanged(auth, async (user) => {
 
-  console.log("Current user:", user);  // 👈 هنا الاختبار
+  console.log("Current user:", user);
 
   if (user) {
     try {
+
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         name: user.displayName || "",
         lastLogin: new Date().toISOString()
       }, { merge: true });
 
-      console.log("Firestore write success ✅");
+      message.innerText =
+        "Welcome " + (user.displayName || user.email) + " 🎉";
 
     } catch (error) {
       console.error("Firestore error:", error);
     }
-  } else {
-    console.log("User not logged in ❌");
   }
 });
-
-
-// ================= SAFE JSON PARSE =================
-function safeJSONParse(value) {
-  try {
-    return typeof value === "string" ? JSON.parse(value) : value;
-  } catch (err) {
-    console.error("Invalid JSON:", err);
-    return value;
-  }
-}
 
 </script>
 
