@@ -84,7 +84,12 @@ window.googleLogin = function () {
 
 
 // ================= AFTER LOGIN =================
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
 onAuthStateChanged(auth, async (user) => {
+
+  console.log("Current user:", user);  // 👈 هنا الاختبار
+
   if (user) {
     try {
       await setDoc(doc(db, "users", user.uid), {
@@ -93,12 +98,13 @@ onAuthStateChanged(auth, async (user) => {
         lastLogin: new Date().toISOString()
       }, { merge: true });
 
-      document.getElementById("message").innerText = 
-        "Welcome " + (user.displayName || user.email) + " 🎉";
+      console.log("Firestore write success ✅");
 
     } catch (error) {
       console.error("Firestore error:", error);
     }
+  } else {
+    console.log("User not logged in ❌");
   }
 });
 
